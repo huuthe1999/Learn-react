@@ -1,27 +1,45 @@
 import './Country.css';
 
-const Country = () => {
+const Country = ({
+	country: {
+		name: { common: countryName },
+		languages,
+		capital,
+		population,
+		currencies,
+		flags: { png: flagUrl },
+	},
+}) => {
 	return (
 		<div className='country'>
 			<div className='country__flag'>
-				<img
-					src='https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg'
-					alt='Afghanistan'
-				/>
+				<img src={flagUrl} alt='Afghanistan' />
 			</div>
-			<h3 className='country__name'>AFGHANISTAN</h3>
+			<h3 className='country__name'>{countryName}</h3>
 			<div className='country__text'>
 				<p>
-					<span>Capital: </span>Kabul
+					<span>Capital: </span>
+					{capital}
 				</p>
 				<p>
-					<span>Languages: </span>Pashto, Uzbek, Turkmen
+					<span>Languages: </span>
+					{languages && Object.values(languages).join(', ')}
 				</p>
 				<p>
-					<span>Population: </span>40,218,234
+					<span>Population: </span>
+					{new Intl.NumberFormat().format(population)}
 				</p>
 				<p>
 					<span>Currency: </span>
+					{currencies &&
+						Object.values(currencies)
+							.map(
+								item =>
+									`${item.name} (${
+										item.symbol && item.symbol
+									})`,
+							)
+							.join(', ')}
 				</p>
 			</div>
 		</div>
