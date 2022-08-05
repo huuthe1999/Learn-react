@@ -2,11 +2,11 @@ import Loading from '../../loading.js';
 import Country from '../Country/Country';
 import './CountryList.css';
 
-const CountryList = ({ data, isSearching }) => {
+const CountryList = ({ data, isSearching, isLoading }) => {
 	return (
 		<div className='countries'>
-			{isSearching ? (
-				<Loading type='spin' color='#60dcfc' width='80%' height='80%' />
+			{isLoading || isSearching ? (
+				<Loading type='spin' color='#60dcfc' />
 			) : (
 				data.length > 0 &&
 				data.map((country, index) => (

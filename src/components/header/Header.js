@@ -8,7 +8,12 @@ const Header = ({ totalCountry, isLoading }) => {
 			<div className='header__subtitle'>
 				Currently, we have{' '}
 				{isLoading ? (
-					<Loading type='spinningBubbles' width={32} height={32} />
+					<Loading
+						type='spinningBubbles'
+						width={32}
+						height={32}
+						isCustom
+					/>
 				) : (
 					totalCountry
 				)}{' '}

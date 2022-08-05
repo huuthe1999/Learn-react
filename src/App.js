@@ -59,7 +59,11 @@ function App() {
 		<div className='app'>
 			<Header totalCountry={countries.length} isLoading={isLoading} />
 			<Control handleChange={handleChange} isLoading={isLoading} />
-			<CountryList data={filterCoutries} isSearching={isSearching} />
+			<CountryList
+				data={filterCoutries}
+				isSearching={isSearching}
+				isLoading={isLoading}
+			/>
 			<Footer />
 		</div>
 	);
