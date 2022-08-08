@@ -15,7 +15,7 @@ form {
 .form-group {
 	display: flex;
 	flex-direction: column;
-	align-items: space-around;
+	align-items: stretch;
 	justify-content: center;
 }
 
@@ -61,7 +61,7 @@ textarea {
 .file-upload {
 	width: 25%;
 }
-inpt[type='file'] {
+input[type='file'] {
 	width: 10%;
 }
 

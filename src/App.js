@@ -1,70 +1,55 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import './app.css';
+import CardList from './components/card/CardList/CardList';
 import Control from './components/control/Control';
-import CountryList from './components/country/CountryList/CountryList';
-import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
-import useDebounce from './components/hooks/useDebounce';
-
+// import useDebounce from './components/hooks/useDebounce';
+import { ToastContainer } from 'react-toastify';
+import generateHexColorArray from './utils/generateHexColorArray';
 function App() {
-	const [countries, setCountries] = useState([]);
-	const [filterCoutries, setFilterCountries] = useState([]);
-	const [searchInput, setSearchInput] = useState('');
-	const [isSearching, setIsSearching] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [colorArray, setColorArray] = useState([]);
+	const [number, setNumber] = useState(30);
 
-	const debouncedSearchTerm = useDebounce(searchInput, 500);
+	// const debouncedSearchTerm = useDebounce(number, 500);
 
 	const handleChange = e => {
-		setSearchInput(e.target.value);
+		const value = e.target.value;
+		if (!value) {
+			setNumber(number);
+		} else {
+			setNumber(+value);
+		}
+	};
+
+	const handleGenerate = () => {
+		setColorArray(generateHexColorArray(number));
 	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				setIsLoading(true);
-				const response = await axios.get(
-					'https://restcountries.com/v3.1/all',
-				);
-				setCountries(response.data);
-				setIsLoading(false);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		fetchData();
+		setColorArray(generateHexColorArray(number));
 	}, []);
-
-	useEffect(() => {
-		if (debouncedSearchTerm) {
-			setIsSearching(true);
-			const filteredCountries = countries.filter(
-				country =>
-					country.name.common
-						.toLowerCase()
-						.includes(debouncedSearchTerm.toLowerCase()) ||
-					country.capital?.[0]
-						.toLowerCase()
-						.includes(debouncedSearchTerm.toLowerCase()),
-			);
-			setFilterCountries(filteredCountries);
-			setIsSearching(false);
-		} else {
-			setIsSearching(false);
-			setFilterCountries(countries);
-		}
-	}, [debouncedSearchTerm, countries]);
 	return (
 		<div className='app'>
-			<Header totalCountry={countries.length} isLoading={isLoading} />
-			<Control handleChange={handleChange} isLoading={isLoading} />
-			<CountryList
-				data={filterCoutries}
-				isSearching={isSearching}
-				isLoading={isLoading}
+			<Header />
+			<Control
+				handleChange={handleChange}
+				number={number}
+				handleGenerate={handleGenerate}
 			/>
-			<Footer />
+			<CardList data={colorArray} />
+			<ToastContainer
+				position='bottom-right'
+				autoClose={1000}
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick={false}
+				closeButton={false}
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 		</div>
 	);
 }

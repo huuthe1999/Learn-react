@@ -1,19 +1,21 @@
 .header {
+	font-size: 2.2rem;
+	font-weight: 100;
+	color: black;
 	text-align: center;
-	padding: 1.5rem;
-	background: #f0f0f0;
+	margin: auto;
+	font-family: Aldrich;
 }
 
-.header h2 {
-	font-size: 4rem;
-	margin: 0.5rem auto;
-	letter-spacing: 0.25rem;
-	font-weight: 600;
-	color: orange;
+.header__title {
+	font-size: 3.4rem;
+	margin: 20px 0px 0px;
+	font-weight: 500;
 }
 
 .header__subtitle {
-	color: #555;
-	font-weight: 600;
-	font-size: 1.6rem;
+	font-size: 2.25rem;
+	margin: 0px 0px 30px;
+	font-weight: 300;
+	font-family: Roboto;
 }
